@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 
 using HotChocolate;
 using HotChocolate.AspNetCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace graphql_intro_web_core
 {
@@ -19,8 +20,11 @@ namespace graphql_intro_web_core
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<BookDbContext>(options => options.UseInMemoryDatabase(databaseName: "Books"));
+            
             services.AddGraphQL(SchemaBuilder.New()
                 .AddQueryType<Query>()
+                .AddMutationType<Mutation>()
                 .Create());
         }
 
