@@ -10,10 +10,4 @@ public class Query
 
     //By convention GetBook() will be recorded as book in the query field.
     public Book GetBook([Service] BookDbContext dbContext, int id) => dbContext.Books.FirstOrDefault(x => x.Id == id);
-
-//    protected override Configure(IObjectTypeDescriptor descriptor)
-//    {
-//        descriptor.Field( "book").Type<BooleanType>().Argument("id", a => a.Type<IdType>())
-//            .Resolver( )
-//    }
 }
