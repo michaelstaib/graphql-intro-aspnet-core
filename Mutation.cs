@@ -2,15 +2,14 @@ using System.Threading.Tasks;
 using HotChocolate;
 using HotChocolate.Types;
 
-namespace graphql_intro_web_core
+namespace Demo
 {
     public class Mutation
     {
         //TODO: use input type as parameter or configure descriptor to make non-null parameter
-        public async Task<Book> Book([Service] BookDbContext dbContext, string title, int pages, string author,
-            int chapters)
+        public async Task<Book> Book([State("", IsScoped = true)]BookDbContext dbContext, Book book)
         {
-            var book = new Book {Title = title, Chapters = chapters, Pages = pages, Author = new Author {Name = author}};
+            // we can automatically infer the book input
             dbContext.Books.Add(book);
             await dbContext.SaveChangesAsync();
             return book;
